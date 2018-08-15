@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<table border>
+<tr>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>주소</th>
+        <th>사이클</th>
+        <th>위임량</th>
+
+</tr>
+{% for row in data %}
+<tr>
+        {% for col in row %}
+            <td>{{col}}</td>
+        {% endfor %}
+</tr>    
+{% endfor %}
+
+</table>
+</body>
+</html>
