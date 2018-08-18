@@ -1,16 +1,49 @@
 <html>
 <head>
-    <title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="viewport" content="width=device-width, initial-scame=1, user-scalable=no">
+    <title>야웅베이킹 위임자 정보</title>
+
+
+<script type="text/javascript">
+
+function go(o)
+{
+location.href="./"+ o.value;
+}
+</script>
+
+
 </head>
 <body>
-<table border>
+<form name="u" action="list">
+<table border="1">
 <tr>
-        <th>아이디</th>
+<td colspan="7">
+보상 사이클 선택 : 
+<select name="roll" onchange="javascript:go(this)">
+<option value="10">--사이클 선택--</option>
+<option value="10">10 사이클</option>
+<option value="11">11 사이클</option>
+<option value="12">12 사이클</option>
+<option value="13">13 사이클</option>
+<option value="14">14 사이클</option>
+<option value="15">15 사이클</option>
+<option value="16">16 사이클</option>
+<option value="17">17 사이클</option>
+<option value="18">18 사이클</option>
+<option value="19">19 사이클</option>
+<option value="20">20 사이클</option>
+</select>
+</td>
+</tr>
+<tr>
+        <th>순번</th>
         <th>이름</th>
         <th>주소</th>
         <th>사이클</th>
         <th>위임량</th>
-
+	<th>사이클별 지분</th>
+        <th>보상량</th>
 </tr>
 {% for row in data %}
 <tr>
@@ -21,5 +54,6 @@
 {% endfor %}
 
 </table>
+</form>
 </body>
 </html>

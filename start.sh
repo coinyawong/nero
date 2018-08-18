@@ -1,2 +1,1 @@
-source yawong_baking/bin/active
-python server.py
+echo `source yawong_baking/bin/activate`

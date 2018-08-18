@@ -22,5 +22,15 @@ def list(cycle):
 	cur.close()
 	conn.close()
 
+@app.route('/update/<u_id>')
+def update(u_id):
+        conn = pymysql.connect(host='127.0.0.1', user='coinyawong2', password='1010893!', db='yawong', charset='utf8mb4')
+        cur = conn.cursor()
+        sql= 'UPDATE user SET name = %s WHERE id = %s'
+        cur.execute(sql, ('dolphin_bonus', u_id))
+        conn.commit()
+)
+	conn.close()
+
 if __name__ == "__main__":
-   app.run(host='192.168.0.100', debug=True)
+   app.run()
