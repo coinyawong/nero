@@ -15,7 +15,7 @@ def list(cycle):
 
 	conn = pymysql.connect(host='127.0.0.1', user='coinyawong2', password='1010893!', db='yawong', charset='utf8mb4')
 	cur = conn.cursor()
-	sql= 'select a.id, a.name, a.i_address, a.cycle, a.balance, truncate(a.balance/(b.roll*10000)*100,3) as percent, truncate(a.balance/(b.roll*10000)*b.total*0.945,3) as reward from user a, cycle b where a.cycle+7 <= %s and b.cycle = %s'
+	sql= 'select a.name name, a.address address, b.cycle cycle, b.balance balance, truncate(b.balance/(c.roll*10000)*100,3) as percent, truncate(b.balance/(c.roll*10000)*c.total*0.945,3) as reward from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s'
 
 	if(cycle<10):
 	  cur.execute(sql, (10, 10))
