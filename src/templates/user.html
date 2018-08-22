@@ -18,7 +18,7 @@ location.href="./"+ o.value;
 <form name="u" action="list">
 <table border="1">
 <tr>
-<td colspan="7">
+<td colspan="6">
 보상 사이클 선택 : 
 <select name="roll" onchange="javascript:go(this)">
 <option value="10">--사이클 선택--</option>
@@ -37,13 +37,12 @@ location.href="./"+ o.value;
 </td>
 </tr>
 <tr>
-        <th>순번</th>
         <th>이름</th>
         <th>주소</th>
-        <th>사이클</th>
+        <th>진입 사이클</th>
         <th>위임량</th>
-	<th>사이클별 지분</th>
-        <th>보상량</th>
+	<th>사이클별 지분(%)</th>
+        <th>보상량(ꜩ)</th>
 </tr>
 {% for row in data %}
 <tr>
