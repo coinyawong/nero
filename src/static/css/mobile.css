@@ -2,6 +2,29 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
+table {
+     border-collapse: collapse;
+     width: 100%;
+     text-align: center;
+}
+
+th, td {
+     padding: 10px;
+     boder-bottom: 3px solid rgb(27, 204, 180);
+}
+
+th {
+    background-color: lightblue;
+}
+tr:hover {
+    background-color: gray;
+}
+
+a {
+    text-decoration: none;
+    color: #00008B;
+}
 .con {
   width: 100%;
   padding: 0;
