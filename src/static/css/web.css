@@ -24,10 +24,10 @@ body {
 }
 
 .nav a {
-  flaot : left;
-  color: #ffffff;
+  flaot : center;
+  color: yellowgreen;
   text-align: center;
-  padding: 12px 12px;
+  padding: 50px 50px;
   text-decoration: none;
 }
 
