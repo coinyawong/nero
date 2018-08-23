@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+     padding: 10px;
+     font-family: Gulim;
+     background: #eee;
+}
+
+.header {
+   padding: 10px;
+   text-align: center;
+   background: white;
+}
+
+.header h1 {
+ font-size: 40px;
+}
+
+.nav {
+  overflow: hidden;
+  background-color: #b70202;
+}
+
+.nav a {
+  flaot : left;
+  color: #ffffff;
+  text-align: center;
+  padding: 12px 12px;
+  text-decoration: none;
+}
+
+.con {
+  float: left;
+  width: 100%;
+}
+
+.a_img {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.row after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.footer {
+  padding: 10px;
+  text-align: center;
+  background: white;
+  margin-top: 20px;
+}
