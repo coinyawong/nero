@@ -12,19 +12,21 @@
 <!-- navigator 영역 -->
 <div class="nav">  
   <a href="#"> 야웅베이킹 규칙</a>
-  <a href="list/10"> 사이클 별 리워드 보기 </a>
-  <a href="#"> 야웅빵집 사이클 별 롤/보상 보기 </a>
+  <a href="list/10">개인별 보상 확인 </a>
+  <a href="#">사이클 리워드 </a>
 </div>
 <!-- main 영역 -->
 <div class="row">
   <div class="con">
   <div class="card">
-    <h2>야웅베이킹은 현재 17사이클 7롤 베이킹 중입니다.</h2>
-    <h4>17사이클 예상리워드 : 00tz</h4>
-    <div class="a_img" style="height:200px;">이미지</div>
+{% for row in data %}
+    <h2>야웅베이킹은 현재 {{row[0]}}사이클, {{row[1]}} 롤 베이킹 중입니다.</h2>
+    <h4>{{row[0]}} 사이클 예상리워드 : {{row[2]}} tz</h4>
+{% endfor %}
+   <img src="../static/img/cat.png" style="height:200px;width:100%;"/>
     <h5>리워드는 베이킹/인도싱 보상 수령 익일에 지급됩니다.</h5>
-       <h6>* 베이커 사정에 의해 몇 일의 지연이 발생할 수 있습니다.</h6>
-       <h6>* 천재지변으로 인해 베이킹이 중단될 경우, 보상하지 않습니다.</h6>
+       <h5>* 베이커 사정에 의해 몇 일의 지연이 발생할 수 있습니다.</h5>
+       <h5>* 천재지변으로 인해 베이킹이 중단될 경우, 보상하지 않습니다.</h5>
      </div>
 <div>
 <!-- footer 영역 -->

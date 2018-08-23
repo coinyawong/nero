@@ -37,9 +37,8 @@ body {
 }
 
 .a_img {
-  background-color: #aaa;
   width: 100%;
-  padding: 20px;
+  padding: 10px;
 }
 
 .card {
@@ -55,10 +54,10 @@ body {
 }
 
 .footer {
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   background: white;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .footer a{

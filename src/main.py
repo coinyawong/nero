@@ -8,7 +8,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("main.html")
+     conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
+     cur = conn.cursor()
+     sql= 'select cycle, roll, total from cycle where cycle = (select max(cycle) from cycle)'
+     cur.execute(sql)
+     result = cur.fetchall()
+     templateData = {'data' : result}
+     return render_template("main.html",**templateData)
+     cur.close()
+     conn.close()
 
 @app.route('/list/<int:cycle>')
 def list(cycle):
