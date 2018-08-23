@@ -60,3 +60,7 @@ body {
   background: white;
   margin-top: 20px;
 }
+
+.footer a{
+  text-decoration: none;
+}
