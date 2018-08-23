@@ -13,7 +13,7 @@ def index():
 @app.route('/list/<int:cycle>')
 def list(cycle):
 
-	conn = pymysql.connect(host='127.0.0.1', user='coinyawong2', password='1010893!', db='yawong', charset='utf8mb4')
+	conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
 	cur = conn.cursor()
 	sql= 'select a.name name, a.address address, b.cycle cycle, b.balance balance, truncate(b.balance/(c.roll*10000)*100,3) as percent, truncate(b.balance/(c.roll*10000)*c.total*0.945,3) as reward from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s'
 
