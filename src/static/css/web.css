@@ -20,14 +20,14 @@ body {
 
 .nav {
   overflow: hidden;
-  background-color: #b70202;
+  background-color: yellowgreen;
 }
 
 .nav a {
-  flaot : left;
-  color: #ffffff;
+  flaot : center;
+  color: #b70202;
   text-align: center;
-  padding: 12px 12px;
+  padding: 100px 100px;
   text-decoration: none;
 }
 
