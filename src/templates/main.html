@@ -5,6 +5,7 @@
 <link rel="stylesheet" media="(max-width:480px)" href="./static/css/mobile.css" />
 </head>
 <body>
+{% for row in data %}
 <!-- header 영역 -->
 <div class="header">
   <h1><a href="http://yabaking.ml">Yawong's bakery</a></h1>
@@ -12,14 +13,13 @@
 <!-- navigator 영역 -->
 <div class="nav">  
   <a href="#"> 야웅베이킹 규칙</a>
-  <a href="list/10">개인별 보상 확인 </a>
+  <a href="list?cycle={{row[0]}}">개인별 보상 확인 </a>
   <a href="#">사이클 리워드 </a>
 </div>
 <!-- main 영역 -->
 <div class="row">
   <div class="con">
   <div class="card">
-{% for row in data %}
     <h2>야웅베이킹은 현재 {{row[0]}}사이클, {{row[1]}} 롤 베이킹 중입니다.</h2>
     <h4>{{row[0]}} 사이클 예상리워드 : {{row[2]}} tz</h4>
 {% endfor %}
