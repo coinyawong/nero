@@ -14,7 +14,7 @@ git pull origin master;;
 4) ## db연결
 mysql -u coinyawong2 -p;;
 5) ## db백업
-mysqldump -u coinyawong2 -p --all-databases > $(date).dump;;
+mysqldump -u coinyawong2 -p --all-databases > $(date +%Y%m%d).dump;;
 *)
 echo "잘못 입력하셨습니다."
 esac
