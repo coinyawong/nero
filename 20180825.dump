@@ -34,6 +34,7 @@ CREATE TABLE `cycle` (
   `cycle` int(11) NOT NULL,
   `roll` int(11) NOT NULL,
   `total` int(11) DEFAULT NULL,
+  `chk` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`cycle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -44,8 +45,32 @@ CREATE TABLE `cycle` (
 
 LOCK TABLES `cycle` WRITE;
 /*!40000 ALTER TABLE `cycle` DISABLE KEYS */;
-INSERT INTO `cycle` VALUES (9,1,15),(10,4,46),(11,4,64),(12,6,46),(13,6,95),(14,6,79),(15,6,69),(16,6,65),(17,6,41);
+INSERT INTO `cycle` VALUES (9,1,15,'완료'),(10,4,46,'완료'),(11,4,64,'완료'),(12,6,46,'완료'),(13,6,95,'미지급'),(14,6,79,'미지급'),(15,6,69,'미지급'),(16,6,65,'미지급'),(17,6,41,'미지급'),(18,6,76,'미지급');
 /*!40000 ALTER TABLE `cycle` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fee`
+--
+
+DROP TABLE IF EXISTS `fee`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fee` (
+  `cycle` int(10) NOT NULL,
+  `fee` float DEFAULT NULL,
+  PRIMARY KEY (`cycle`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fee`
+--
+
+LOCK TABLES `fee` WRITE;
+/*!40000 ALTER TABLE `fee` DISABLE KEYS */;
+INSERT INTO `fee` VALUES (9,0.825),(10,2.53),(11,3.52),(12,2.53);
+/*!40000 ALTER TABLE `fee` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -58,7 +83,7 @@ DROP TABLE IF EXISTS `payout`;
 CREATE TABLE `payout` (
   `address` varchar(100) NOT NULL,
   `cycle` int(11) NOT NULL,
-  `reward` int(11) NOT NULL,
+  `reward` float DEFAULT NULL,
   `day` date DEFAULT NULL,
   PRIMARY KEY (`address`,`cycle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -70,6 +95,7 @@ CREATE TABLE `payout` (
 
 LOCK TABLES `payout` WRITE;
 /*!40000 ALTER TABLE `payout` DISABLE KEYS */;
+INSERT INTO `payout` VALUES ('-',9,17.01,'2018-08-25'),('-',10,13.041,'2018-08-25'),('-',11,18.144,'2018-08-25'),('-',12,8.694,'2018-08-25'),('tz1azNjsLJiaRZ6Zj43sHchvHYD3DLbvwUko',12,1.086,'2018-08-25'),('tz1ehBrvenpeUCKZBcgH34VMr5KPg9gxzkSP',12,7.197,'2018-08-25'),('tz1LqSfBZQXWiXwsYchUiYSFgkiNT3eY9Wij',12,0.362,'2018-08-25'),('tz1PrQjp38WaZAKtEGSM4RmgefBcZz838tX2',10,10.867,'2018-08-25'),('tz1PrQjp38WaZAKtEGSM4RmgefBcZz838tX2',11,15.12,'2018-08-25'),('tz1PrQjp38WaZAKtEGSM4RmgefBcZz838tX2',12,7.244,'2018-08-25'),('tz1UrUfcaEYaND4UuhkpX5Ao1auWVDMqvP49',12,0.97,'2018-08-25'),('tz1WuEwAexbx1T7PwCPRnB4Ln3VjQyGrTLwF',10,13.041,'2018-08-25'),('tz1WuEwAexbx1T7PwCPRnB4Ln3VjQyGrTLwF',11,18.144,'2018-08-25'),('tz1WuEwAexbx1T7PwCPRnB4Ln3VjQyGrTLwF',12,11.501,'2018-08-25'),('tz1XERm1hayQWaAt6MriD3W1W7nQVCzbshKk',10,6.52,'2018-08-25'),('tz1XERm1hayQWaAt6MriD3W1W7nQVCzbshKk',11,9.072,'2018-08-25'),('tz1XERm1hayQWaAt6MriD3W1W7nQVCzbshKk',12,4.347,'2018-08-25');
 /*!40000 ALTER TABLE `payout` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,4 +158,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-25  9:07:02
+-- Dump completed on 2018-08-25 18:09:07

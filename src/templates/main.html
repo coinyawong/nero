@@ -3,6 +3,7 @@
 <head>
 <link rel="stylesheet" href="./static/css/web.css" />
 <link rel="stylesheet" media="(max-width:480px)" href="./static/css/mobile.css" />
+<title>야웅베이킹에 오신 것을 환영합니다.</title>
 </head>
 <body>
 {% for row in data %}
@@ -14,7 +15,7 @@
 <div class="nav">  
   <a href="#"> 야웅베이킹 규칙</a>
   <a href="list?cycle={{row[0]}}">개인별 보상 확인 </a>
-  <a href="#">사이클 리워드 </a>
+  <a href="reward?cycle=">사이클 리워드 </a>
 </div>
 <!-- main 영역 -->
 <div class="row">

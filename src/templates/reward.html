@@ -4,12 +4,12 @@
 <link rel="stylesheet" href="../static/css/web.css" />
 <link rel="stylesheet" media="(max-width:480px)" href="../static/css/mobile.css" />
 
-<title>야웅베이킹 개인별 리워드</title>
+<title>야웅베이킹 사이클 리워드</title>
 
 <script type="text/javascript">
 function go(o)
 {
-location.href="list?cycle="+ o.value;
+location.href="reward?cycle="+ o.value;
 }
 </script>
 
@@ -30,38 +30,23 @@ location.href="list?cycle="+ o.value;
 <div class="row">
   <div class="con">
 <h4>
-<form name="user" action="list" method="get">
+<form name="user" action="reward" method="get">
 <td colspan="6">
-보상 사이클 선택 :{{cycle}}
-<select name="cycle" onchange="javascript:go(this)">
-<option value="10">-----사이클 선택-----</option>
-<option value="10">10 사이클</option>
-<option value="11">11 사이클</option>
-<option value="12">12 사이클</option>
-<option value="13">13 사이클</option>
-<option value="14">14 사이클</option>
-<option value="15">15 사이클</option>
-<option value="16">16 사이클</option>
-<option value="17">17 사이클</option>
-<option value="18">18 사이클</option>
-<option value="19">19 사이클</option>
-<option value="20">20 사이클</option>
-</select>
+보상 사이클 입력:
+<input type="text" name="cycle" /> 
+<input type="submit" value="GO" />
 </h4>
 <table>
 <tr>
-        <th>이름</th>
-        <th>주소</th>
-        <th>위임사이클</th>
-        <th>위임량</th>
-        <th>사이클별 지분[%]</th>
-        <th>보상량[tz]</th>
+        <th>사이클</th>
+        <th>롤수</th>
+        <th>리워드[tz]</th>
 	<th>보상지급</th>
 </tr>
 {% for row in data %}
 <tr>
         {% for col in row %}
-            <td><a href="user_reward?id={{row[1]}}">{{col}}</a></td>
+            <td>{{col}}</td>
         {% endfor %}
 </tr>
 {% endfor %}
