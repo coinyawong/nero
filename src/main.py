@@ -19,6 +19,12 @@ def index():
      cur.close()
      conn.close()
 
+@app.route('/notice')
+def notice():
+     return render_template("notice.html")
+     cur.close()
+     conn.close()
+
 @app.route('/admin', methods=['GET'])
 def admin():
      opt = request.args.get('opt')
