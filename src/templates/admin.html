@@ -7,9 +7,42 @@
 <title>야웅베이킹 관리자</title>
 
 <script type="text/javascript">
+{% if chv != '1' %}
+
+alert("권한이 없습니다.");
+location.href="/";
+
+{% endif %}
+
 function go(o)
 {
-location.href="reward?cycle="+ o.value;
+if(o == 'a' || o == 'b'){
+f = document.admin1;
+if(f.cycle.value == ''){
+alert("사이클값미입력");
+} else if(f.reward.value == ''){
+alert("리워드 미입력");
+} else if(f.roll.value == ''){
+alert("롤 미입력");
+} else {
+f.opt.value = o;
+f.submit();
+ }
+} else if(o == 'c' || o == 'd') {
+f = document.admin2;
+if(f.name.value == ''){
+alert("이름 미입력");
+} else if(f.cycle.value == ''){
+alert("사이클 미입력");
+} else if(f.bal.value == ''){
+alert("위임량 미입력");
+} else if(f.address.value == ''){
+alert("주소 미입력");
+} else {
+f.opt.value = o;
+f.submit();
+ }
+ }
 }
 </script>
 
@@ -23,34 +56,66 @@ location.href="reward?cycle="+ o.value;
 <!-- navigator 영역 -->
 <div class="nav">  
   <a href="#"> 야웅베이킹 규칙</a>
-  <a href="list?cycle={{cycle}}">개인별 보상 확인 </a>
-  <a href="reward?cycle=">사이클 리워드 </a>
+  <a href="list?cycle={{data[0][1]}}">개인별 보상 확인 </a>
+  <a href="reward?cycle={{data[0][1]}}">사이클 리워드 </a>
 </div>
 <!-- main 영역 -->
 <div class="row">
-  <div class="con" style="width:50%;">
-<h4>
-<form name="user" action="" method="get">
-<td colspan="6">
-</h4>
-<table style="width: 50%;">
+  <div class="con">
+<p></p>
+<table class="admin_table">
 <tr>
-        <th>사이클</th>
-        <th>롤수</th>
-        <th>리워드[tz]</th>
-	<th>보상지급</th>
+<th style="width:20%">예상보상 등록</th>
+<th style="width:80%">위임자 정보 변경(변경값만 입력)</th>
 </tr>
 <tr>
-        <td><input type="text" name="cycle"/></td>
-	<td><input type="text" name="roll"/></td>
-	<td><input type="text" name="reward"/></td>
-	<td><input type="submit" value="입력"/></td>
+<td>
+<form name="admin1" method="get" action="admin">
+<table class="admin_table">
+<tr><td>사이클: <input type="text" name="cycle" size="5" value="{{data[0][1]+1}}"/></td></tr>
+<tr><td>보상량: <input type="text" name="reward" size="5"/></td></tr>
+<tr><td>롤개수: <input type="text" name="roll" size="5"/><input type="hidden" name="opt"/></td></tr> 
+<tr><td><a href="javascript:go('a');">[입력]</a> <a href="javascript:go('b');">[수정]</a></td></tr>
+</table>
+</form>
+</td>
+<td>
+<table>
+<tr>
+<th>이름{{chv}}</th>
+<th>사이클</th>
+<th>변경위임량</th>
+<th>주소</th>
+<th>입력</th>
+</tr>
+<form name="admin2" method="get" action="admin">
+<tr>
+<td><input type="text" name="name" size="5"/></td>
+<td><input type="text" name="cycle" size="5"/></td>
+<td><input type="text" name="bal" size="5"/></td>
+<td><input type="text" name="address" size="30"/><input type="hidden" name="opt"/></td>
+<td><a href="javascript:go('c');">[수정]</a> <a href="javascript:go('d');">[신규]</a></td>
+<tr>
+</form>
+</tr>
+<tr>
+<th>이름</th>
+<th>사이클</th>
+<th>위임량</th>
+<th colspan="2">주소</th>
+</tr>
+{% for i in data %}
+<tr>
+<td>{{i[0]}}</td>
+<td>{{i[1]}}</td>
+<td>{{i[2]}}</td>
+<td colspan="2">{{i[3]}}</td>
+</tr>
+{% endfor %}
+</table>
+</td>
 </tr>
 </table>
-dsafasdfasfasdasdfdas
-<div class="con" style="50%;">
-<p2>sajdkfjasfk</p2>
-</form>
  <div>
 <!-- footer 영역 -->
 <div class="footer">

@@ -7,9 +7,28 @@
 <title>야웅베이킹 사이클 리워드</title>
 
 <script type="text/javascript">
+function chk()
+{
+var a = prompt('비밀번호를 입력하세요');
+if(a == null){
+alert("취소하셨습니다.");
+} else {
+alert("보상지급 확인 페이지로 이동합니다.");
+location.href="admin_ck?type=b&pw="+a ;
+}
+}
+
 function go(o)
 {
-location.href="reward?cycle="+ o.value;
+var ch = confirm('보상지불을 완료하셨습니까?');
+
+if(ch){
+alert(o+"사이클 보상지불 완료");
+location.href="payout?cycle="+o;
+}
+else {
+alert("취소하셨습니다.");
+}
 }
 </script>
 
@@ -35,6 +54,7 @@ location.href="reward?cycle="+ o.value;
 보상 사이클 입력:
 <input type="text" name="cycle" /> 
 <input type="submit" value="GO" />
+<a href="javascript:chk()">[관리자]</a>
 </h4>
 <table>
 <tr>
@@ -46,7 +66,7 @@ location.href="reward?cycle="+ o.value;
 {% for row in data %}
 <tr>
         {% for col in row %}
-            <td>{{col}}</td>
+            <td>{% if col == 'X' %} 미지급 {% if chv == '1' %} <a href="javascript:go({{row[0]}})">[지불확인]</a> {% endif %}{% elif col == 'O' %} 완료 {% else %} {{col}} {% endif %}</td>
         {% endfor %}
 </tr>
 {% endfor %}

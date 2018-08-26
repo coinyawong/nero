@@ -32,6 +32,19 @@ a {
     color: #00008B;
 }
 
+.admin_table {
+   border-collapse: collapse;
+   width: 100%;
+   text-align: center;
+}
+
+.admin_table th, td {
+  padding: 10px;
+}
+
+.admin_table th {
+  background-color: yellowgreen;
+}
 
 .header {
    padding: 10px;
