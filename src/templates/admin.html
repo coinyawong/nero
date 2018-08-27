@@ -1,64 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="../static/css/web.css" />
-<link rel="stylesheet" media="(max-width:480px)" href="../static/css/mobile.css" />
-
-<title>야웅베이킹 관리자</title>
-
-<script type="text/javascript">
-{% if chv != '1' %}
-
-alert("권한이 없습니다.");
-location.href="/";
-
-{% endif %}
-
-function go(o)
-{
-if(o == 'a' || o == 'b'){
-f = document.admin1;
-if(f.cycle.value == ''){
-alert("사이클값미입력");
-} else if(f.reward.value == ''){
-alert("리워드 미입력");
-} else if(f.roll.value == ''){
-alert("롤 미입력");
-} else {
-f.opt.value = o;
-f.submit();
- }
-} else if(o == 'c' || o == 'd') {
-f = document.admin2;
-if(f.name.value == ''){
-alert("이름 미입력");
-} else if(f.cycle.value == ''){
-alert("사이클 미입력");
-} else if(f.bal.value == ''){
-alert("위임량 미입력");
-} else if(f.address.value == ''){
-alert("주소 미입력");
-} else {
-f.opt.value = o;
-f.submit();
- }
- }
-}
-</script>
-
-</head>
-
-<body>
-<!-- header 영역 -->
-<div class="header">
-  <h1><a href="/">Yawong's bakery</a></h1>
-</div>
-<!-- navigator 영역 -->
-<div class="nav">  
-  <a href="notice"> 야웅베이킹 규칙</a>
-  <a href="list?cycle={{data[0][1]}}">개인별 보상 확인 </a>
-  <a href="reward?cycle={{data[0][1]}}">사이클 리워드 </a>
-</div>
+{% extends "layout.html" %}
+{% block content %}
 <!-- main 영역 -->
 <div class="row">
   <div class="con">
@@ -70,12 +11,12 @@ f.submit();
 </tr>
 <tr>
 <td>
-<form name="admin1" method="get" action="admin">
+<form name="admin1" method="post" action="admin">
 <table class="admin_table">
 <tr><td>사이클: <input type="text" name="cycle" size="5" value="{{data[0][1]+1}}"/></td></tr>
 <tr><td>보상량: <input type="text" name="reward" size="5"/></td></tr>
-<tr><td>롤개수: <input type="text" name="roll" size="5"/><input type="hidden" name="opt"/></td></tr> 
-<tr><td><a href="javascript:go('a');">[입력]</a> <a href="javascript:go('b');">[수정]</a></td></tr>
+<tr><td>롤개수: <input type="text" name="roll" size="5"/><input type="hidden" name="opt"/><input type="hidden" name="pw"/></td></tr> 
+<tr><td><a href="javascript:go_admin('a');">[입력]</a> <a href="javascript:go_admin('b');">[수정]</a></td></tr>
 </table>
 </form>
 </td>
@@ -88,13 +29,13 @@ f.submit();
 <th>주소</th>
 <th>입력</th>
 </tr>
-<form name="admin2" method="get" action="admin">
+<form name="admin2" method="post" action="admin">
 <tr>
 <td><input type="text" name="name" size="5"/></td>
 <td><input type="text" name="cycle" size="5"/></td>
 <td><input type="text" name="bal" size="5"/></td>
-<td><input type="text" name="address" size="30"/><input type="hidden" name="opt"/></td>
-<td><a href="javascript:go('c');">[수정]</a> <a href="javascript:go('d');">[신규]</a></td>
+<td><input type="text" name="address" size="30"/><input type="hidden" name="opt"/><input type="hidden" name="pw"/></td>
+<td><a href="javascript:go_admin('c');">[수정]</a> <a href="javascript:go_admin('d');">[신규]</a></td>
 <tr>
 </form>
 </tr>
@@ -117,9 +58,4 @@ f.submit();
 </tr>
 </table>
  <div>
-<!-- footer 영역 -->
-<div class="footer">
-  <h3>TzScan: <a href="http://tzscan.io/tz1Zbbuc5Z1ctnCVybqdw7z6FwPjgVufDATc">[바로가기]</a></h3>
-</div>
-</body>
-</html>
+{% endblock %}
