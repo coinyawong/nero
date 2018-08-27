@@ -1,17 +1,21 @@
+#-*- coding:utf-8 -*-
 import pymysql.cursors
 
 from flask import Flask
 from flask import render_template
 from flask import request
-from flask import redirect, url_for
+from flask import redirect, url_for, session, abort, flash
+
+import os
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+     session['admin'] = False
      conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
      cur = conn.cursor()
-     sql= 'select cycle, roll, total from cycle where cycle = (select max(cycle) from cycle)'
+     sql= 'select cycle, roll, total from cycle where cycle = (select max(cycle)-5 from cycle)'
      cur.execute(sql)
      result = cur.fetchall()
      templateData = {'data' : result}
@@ -25,64 +29,63 @@ def notice():
      cur.close()
      conn.close()
 
-@app.route('/admin', methods=['GET'])
+@app.route('/admin', methods=['GET']) # 계정정보 부분이라 post로 변경
 def admin():
-     opt = request.args.get('opt')
-     chv = request.args.get('chv')
-     conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
-     cur = conn.cursor()
-     sql= 'select a.name, (select max(cycle) from cycle) cycle, sum(b.balance) balance, b.address from user a, user_info b where a.address = b.address and b.cycle+7 <= (select max(cycle) cycle from cycle) group by a.name, b.address'
-     cur.execute(sql)
-     result = cur.fetchall()
-     cur2 = conn.cursor()
-     if opt == 'a':
-        sql2= 'insert into cycle values(%s, %s, %s, "X")'
-        n1 = request.args.get('cycle')
-        n3 = request.args.get('reward')
-        n2 = request.args.get('roll')
-        cur2.execute(sql2, (n1, n2, n3))
-	cur2.close()
-        conn.commit()
-     elif opt == 'b':
-        sql2= 'update cycle set roll=%s, total=%s where cycle = %s'
-        n3 = request.args.get('cycle')
-        n2 = request.args.get('reward')
-        n1 = request.args.get('roll')
-        cur2.execute(sql2, (n1, n2, n3))
-	cur2.close()
-        conn.commit()
-     elif opt == 'c':
-        sql2= 'insert into user_info values(%s, %s, %s, sysdate())'
-        n1 = request.args.get('address')
-        n2 = request.args.get('cycle')
-        n3 = request.args.get('bal')
-        cur2.execute(sql2, (n1, n2, n3))
-	cur2.close()
-        conn.commit()
-     elif opt == 'd':
-        sql2= 'insert into user_info values(%s, %s, %s, sysdate())'
-	sql3 = 'insert into user values(%s, %s)'
-        n1 = request.args.get('address')
-        n2 = request.args.get('cycle')
-        n3 = request.args.get('bal')
-        n4 = request.args.get('name')
-        cur2.execute(sql2, (n1, n2, n3))
-        cur2.close()
-	cur3= conn.cursor()
-	cur3.execute(sql3, (n4, n1))
-	cur3.close()
-        conn.commit()
-     templateData = {'data' : result, 'chv' : chv}
-     if chv != '1' :
-	return redirect(url_for('index'))
-     else :
+     if not session.get('admin'):
+        return redirect(url_for('index'))
+     else:
+        opt = request.args.get('opt')
+        conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
+        cur = conn.cursor()
+        sql= 'select a.name, (select max(cycle)-5 from cycle) cycle, sum(b.balance) balance, b.address from user a, user_info b where a.address = b.address and b.cycle+7 <= (select max(cycle) cycle from cycle) group by a.name, b.address'
+        cur.execute(sql)
+        result = cur.fetchall()
+        cur2 = conn.cursor()
+        if opt == 'a':
+          sql2= 'insert into cycle values(%s, %s, %s, "X")'
+          n1 = request.args.get('cycle')
+          n3 = request.args.get('reward')
+          n2 = request.args.get('roll')
+          cur2.execute(sql2, (n1, n2, n3))
+	  cur2.close()
+          conn.commit()
+        elif opt == 'b':
+          sql2= 'update cycle set roll=%s, total=%s where cycle = %s'
+          n3 = request.args.get('cycle')
+          n2 = request.args.get('reward')
+          n1 = request.args.get('roll')
+          cur2.execute(sql2, (n1, n2, n3))
+	  cur2.close()
+          conn.commit()
+        elif opt == 'c':
+          sql2= 'insert into user_info values(%s, %s, %s, sysdate())'
+          n1 = request.args.get('address')
+          n2 = request.args.get('cycle')
+          n3 = request.args.get('bal')
+          cur2.execute(sql2, (n1, n2, n3))
+	  cur2.close()
+          conn.commit()
+        elif opt == 'd':
+          sql2= 'insert into user_info values(%s, %s, %s, sysdate())'
+	  sql3 = 'insert into user values(%s, %s)'
+          n1 = request.args.get('address')
+          n2 = request.args.get('cycle')
+          n3 = request.args.get('bal')
+          n4 = request.args.get('name')
+          cur2.execute(sql2, (n1, n2, n3))
+          cur2.close()
+	  cur3= conn.cursor()
+	  cur3.execute(sql3, (n4, n1))
+	  cur3.close()
+          conn.commit()
+        templateData = {'data' : result}
         return render_template("admin.html",**templateData)
-     conn.close()
+        conn.close()
 
-@app.route('/admin_ck', methods=['GET'])
+@app.route('/admin_ck', methods=['POST'])
 def admin_ck():
-     md = request.args.get('type')
-     pwe= request.args.get('pw')
+     md = request.form['opt']
+     pwe= request.form['pw']
      conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
      cur = conn.cursor()
      sql= 'select count(*) cnt from admin where passwd=%s'
@@ -90,14 +93,19 @@ def admin_ck():
      result= cur.fetchone()
      cur.close()
      conn.close()
-     if md == 'a':
-        return redirect(url_for('admin', chv = result))
-     elif md == 'b':
-	return redirect(url_for('reward', cycle='', chv = result))
+     cnt = result[0]
+     if cnt < 1:
+       return redirect(url_for('index'))
+     else:
+       session['admin'] = True
+       if md == 'a':
+         return redirect(url_for('admin'))
+       elif md == 'b':
+	 return redirect(url_for('reward', cycle=''))
 
-@app.route('/payout', methods=['GET'])
+@app.route('/payout', methods=['POST'])
 def payout():
-     cycle = request.args.get('cycle')
+     cycle = request.form['cycle']
      conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
      cur = conn.cursor()
      sql= 'insert into payout select a.address address, c.cycle cycle, sum(truncate(b.balance/(c.roll*10000)*c.total*0.945,3)) as reward, sysdate() from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and b.balance > 0 group by a.address, c.cycle'
@@ -115,10 +123,15 @@ def payout():
 @app.route('/list', methods=['GET'])
 def list():
 	cycle = request.args.get('cycle')
-	if len(cycle) == 0:
-	  cycle = 10
 	conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
-	cur = conn.cursor()
+        cur = conn.cursor()
+	if len(cycle) == 0:
+	  sql3 = 'select max(cycle)-5 cycle from cycle'
+	  cur3 = conn.cursor()
+	  cur3.execute(sql3)
+          result3 = cur3.fetchone()
+          cycle = result3[0]
+          cur3.close()
 	sql= 'select a.name name, a.address address, b.cycle cycle, b.balance balance, truncate(b.balance/(c.roll*10000)*100,3) as percent, truncate(b.balance/(c.roll*10000)*c.total*0.945,3) as reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and b.balance > 0 order by b.cycle'
 	cur.execute(sql, (cycle, cycle))
 	result = cur.fetchall()
@@ -135,17 +148,16 @@ def list():
 @app.route('/reward', methods=['GET'])
 def reward():
 	cycle = request.args.get('cycle')
-	chv = request.args.get('chv')
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
 	if len(cycle) ==0:
-	   sql= 'select cycle, roll, total, chk from cycle order by cycle'
+	   sql= 'select cycle, roll, truncate(total/roll, 3) r_reward, total, chk from cycle order by cycle'
 	   cur.execute(sql)
 	else:
-	   sql='select cycle, roll, total, chk from cycle where cycle=%s'
+	   sql='select cycle, roll, truncate(total/roll, 3) r_reward, total, chk from cycle where cycle=%s'
            cur.execute(sql, cycle)
         result = cur.fetchall()
-        templateData = {'data' : result, 'cycle' : cycle, 'chv': chv}
+        templateData = {'data' : result, 'cycle' : cycle}
         return render_template('reward.html',**templateData)
         cur.close()
         conn.close()
@@ -166,7 +178,7 @@ def user_reward():
 	cur2.close()
 	if id == '-':
 	  cur3 = conn.cursor()
-	  sql3='select truncate(sum(fee),3) fee from fee'
+	  sql3='select truncate(sum(reward)*0.055, 3) fee from payout'
 	  cur3.execute(sql3)
 	  result3 = cur3.fetchall()
           cur3.close()
@@ -178,4 +190,5 @@ def user_reward():
 
 
 if __name__ == "__main__":
-   app.run(host='192.168.0.136', port=8306)
+   app.secret_key = os.urandom(12)
+   app.run(host='192.168.0.136', port=8306, debug=True)

@@ -1,31 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="../static/css/web.css" />
-<link rel="stylesheet" media="(max-width:480px)" href="../static/css/mobile.css" />
-
-<title>야웅베이킹 개인별 리워드</title>
-
-<script type="text/javascript">
-function go(o)
-{
-location.href="list?cycle="+ o.value;
-}
-</script>
-
-</head>
-
-<body>
-<!-- header 영역 -->
-<div class="header">
-  <h1><a href="/">Yawong's bakery</a></h1>
-</div>
-<!-- navigator 영역 -->
-<div class="nav">  
-  <a href="notice"> 야웅베이킹 규칙</a>
-  <a href="list?cycle={{cycle}}">개인별 보상 확인 </a>
-  <a href="reward?cycle=">사이클 리워드 </a>
-</div>
+{% extends "layout.html" %}
+{% block content %}
 <!-- main 영역 -->
 <div class="row">
   <div class="con">
@@ -33,7 +7,7 @@ location.href="list?cycle="+ o.value;
 <form name="user" action="list" method="get">
 <td colspan="6">
 보상 사이클 :
-<select name="cycle" onchange="javascript:go(this)">
+<select name="cycle" onchange="javascript:go_user(this)">
 <option value="">-----사이클 선택-----</option>
 {% for i in data2 %}
 <option value="{{i[0]}}"> {{i[0]}} 사이클</option>
@@ -62,9 +36,4 @@ location.href="list?cycle="+ o.value;
 </form>
     <h5 style="color:red;">수수료는 리워드의 5.5%입니다.</h5>
  <div>
-<!-- footer 영역 -->
-<div class="footer">
-  <h3>TzScan: <a href="http://tzscan.io/tz1Zbbuc5Z1ctnCVybqdw7z6FwPjgVufDATc">[바로가기]</a></h3>
-</div>
-</body>
-</html>
+{% endblock %}

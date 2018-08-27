@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="./static/css/web.css" />
+<link rel="stylesheet" media="(max-width:480px)" href="./static/css/mobile.css" />
+<title>야웅베이킹에 오신 것을 환영합니다.</title>
+<script type="text/javascript">
+// 메인
+function go_main(){
+{% if not session['admin'] %} 
+var a = prompt('비밀번호를 입력하세요');
+if (a == null) {
+alert("취소하셨습니다.")
+} else {
+alert("관리자 페이지로 이동합니다.");
+f = document.ml;
+f.opt.value = 'a';
+f.pw.value = a;
+f.submit();
+  }
+{% else %}
+location.href="admin";
+{% endif %}
+}
+// admin
+function go_admin(o)
+{
+if(o == 'a' || o == 'b'){
+f = document.admin1;
+if(f.cycle.value == ''){
+alert("사이클값미입력");
+} else if(f.reward.value == ''){
+alert("리워드 미입력");
+} else if(f.roll.value == ''){
+alert("롤 미입력");
+} else {
+f.opt.value = o;
+f.submit();
+ }
+} else if(o == 'c' || o == 'd') {
+f = document.admin2;
+if(f.name.value == ''){
+alert("이름 미입력");
+} else if(f.cycle.value == ''){
+alert("사이클 미입력");
+} else if(f.bal.value == ''){
+alert("위임량 미입력");
+} else if(f.address.value == ''){
+alert("주소 미입력");
+} else {
+f.opt.value = o;
+f.submit();
+   }
+ }
+}
+//보상지불(reward)
+function chk()
+{
+f = document.reward2;
+var a = prompt('비밀번호를 입력하세요');
+if(a == null){
+alert("취소하셨습니다.");
+} else {
+alert("보상지급 확인 페이지로 이동합니다.");
+f.opt.value = 'b';
+f.pw.value = a;
+f.submit();
+  }
+}
+function go_reward(o)
+{
+f = document.reward2;
+var ch = confirm('보상지불을 완료하셨습니까?');
+if(ch){
+alert(o+"사이클 보상지불 완료");
+f.cycle.value=o;
+f.action="payout";
+f.submit();
+}
+else {
+alert("취소하셨습니다.");
+  }
+}
+//개인별 리워드
+function go_user(o)
+{
+location.href="list?cycle="+ o.value;
+} 
+ 
+</script>
+</head>
+<body>
+<!-- header 영역 -->
+<div class="header">
+  <h1><a href="/">Yawong's bakery</a></h1>
+</div>
+<!-- navigator 영역 -->
+<div class="nav">  
+  <a href="notice"> 야웅베이킹 규칙</a>
+  <a href="list?cycle=">개인별 보상 확인 </a>
+  <a href="reward?cycle=">사이클 리워드 </a>
+  <a href="javascript:go_main()">관리자</a>
+</div>
+<form name="ml" method="post" action="admin_ck">
+<input type="hidden" name="opt"/><input type="hidden" name="pw"/>
+</form>
+{% block content %}{% endblock %}
+<!-- footer 영역 -->
+<div class="footer">
+  <h3>TzScan: <a href="http://tzscan.io/tz1Zbbuc5Z1ctnCVybqdw7z6FwPjgVufDATc">[바로가기]</a></h3>
+</div>
+</body>
+</html>

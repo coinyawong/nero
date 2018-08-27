@@ -1,55 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="../static/css/web.css" />
-<link rel="stylesheet" media="(max-width:480px)" href="../static/css/mobile.css" />
-
-<title>야웅베이킹 사이클 리워드</title>
-
-<script type="text/javascript">
-function chk()
-{
-var a = prompt('비밀번호를 입력하세요');
-if(a == null){
-alert("취소하셨습니다.");
-} else {
-alert("보상지급 확인 페이지로 이동합니다.");
-location.href="admin_ck?type=b&pw="+a ;
-}
-}
-
-function go(o)
-{
-var ch = confirm('보상지불을 완료하셨습니까?');
-
-if(ch){
-alert(o+"사이클 보상지불 완료");
-location.href="payout?cycle="+o;
-}
-else {
-alert("취소하셨습니다.");
-}
-}
-</script>
-
-</head>
-
-<body>
-<!-- header 영역 -->
-<div class="header">
-  <h1><a href="/">Yawong's bakery</a></h1>
-</div>
-<!-- navigator 영역 -->
-<div class="nav">  
-  <a href="notice"> 야웅베이킹 규칙</a>
-  <a href="list?cycle={{cycle}}">개인별 보상 확인 </a>
-  <a href="reward?cycle=">사이클 리워드 </a>
-</div>
+{% extends "layout.html" %}
+{% block content %}
 <!-- main 영역 -->
 <div class="row">
   <div class="con">
 <h4>
-<form name="user" action="reward" method="get">
+<form name="reward" action="reward" method="get">
 <td colspan="6">
 보상 사이클 입력:
 <input type="text" name="cycle" /> 
@@ -60,23 +15,23 @@ alert("취소하셨습니다.");
 <tr>
         <th>사이클</th>
         <th>롤수</th>
+	<th>롤당 리워드[tz]</th>
         <th>리워드[tz]</th>
 	<th>보상지급</th>
 </tr>
 {% for row in data %}
 <tr>
         {% for col in row %}
-            <td>{% if col == 'X' %} 미지급 {% if chv == '1' %} <a href="javascript:go({{row[0]}})">[지불확인]</a> {% endif %}{% elif col == 'O' %} 완료 {% else %} {{col}} {% endif %}</td>
+            <td>{% if col == 'X' %} 미지급 {% if session['admin'] %} <a href="javascript:go_reward({{row[0]}})">[지불확인]</a> {% endif %}{% elif col == 'O' %} 완료 {% else %} {{col}} {% endif %}</td>
         {% endfor %}
 </tr>
 {% endfor %}
 </table>
 </form>
+<form name="reward2" action="admin_ck" method="post">
+<input type="hidden" name="opt"/><input type="hidden" name ="pw"/>
+<input type="hidden" name="cycle"/>
+</form>
     <h5 style="color:red;">수수료는 리워드의 5.5%입니다.</h5>
  <div>
-<!-- footer 영역 -->
-<div class="footer">
-  <h3>TzScan: <a href="http://tzscan.io/tz1Zbbuc5Z1ctnCVybqdw7z6FwPjgVufDATc">[바로가기]</a></h3>
-</div>
-</body>
-</html>
+{% endblock %}
