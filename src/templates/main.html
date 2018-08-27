@@ -1,35 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="./static/css/web.css" />
-<link rel="stylesheet" media="(max-width:480px)" href="./static/css/mobile.css" />
-<title>야웅베이킹에 오신 것을 환영합니다.</title>
-<script type="text/javascript">
-function go()
-{
-var a = prompt('비밀번호를 입력하세요');
-if (a == null) {
-alert("취소하셨습니다.")
-} else {
-alert("관리자 페이지로 이동합니다.");
-location.href="admin_ck?type=a&pw="+a ;
-}
-}
-</script>
-</head>
-<body>
-{% for row in data %}
-<!-- header 영역 -->
-<div class="header">
-  <h1><a href="/">Yawong's bakery</a></h1>
-</div>
-<!-- navigator 영역 -->
-<div class="nav">  
-  <a href="notice"> 야웅베이킹 규칙</a>
-  <a href="list?cycle={{row[0]}}">개인별 보상 확인 </a>
-  <a href="reward?cycle=">사이클 리워드 </a>
-  <a href="javascript:go()">관리자</a>
-</div>
+{% extends "layout.html" %}
+{% block content %}
 <!-- main 영역 -->
 <div class="row">
   <div class="con">
@@ -43,9 +13,4 @@ location.href="admin_ck?type=a&pw="+a ;
        <h5 style="color:red;">* 천재지변으로 인해 베이킹이 중단될 경우, 보상하지 않습니다.</h5>
      </div>
 <div>
-<!-- footer 영역 -->
-<div class="footer">
-  <h3>TzScan: <a href="http://tzscan.io/tz1Zbbuc5Z1ctnCVybqdw7z6FwPjgVufDATc">[바로가기]</a></h3>
-</div>
-</body>
-</html>
+{% endblock %}
