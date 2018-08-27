@@ -15,7 +15,7 @@ def index():
      session['admin'] = False
      conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
      cur = conn.cursor()
-     sql= 'select cycle, roll, total from cycle where cycle = (select max(cycle) from cycle)'
+     sql= 'select cycle, roll, total from cycle where cycle = (select max(cycle)-5 from cycle)'
      cur.execute(sql)
      result = cur.fetchall()
      templateData = {'data' : result}
@@ -84,7 +84,7 @@ def admin():
 
 @app.route('/admin_ck', methods=['POST'])
 def admin_ck():
-     md = request.form['type']
+     md = request.form['opt']
      pwe= request.form['pw']
      conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
      cur = conn.cursor()
