@@ -178,4 +178,4 @@ def user_reward():
 
 
 if __name__ == "__main__":
-   app.run(host='', port=, debug=True)
+   app.run(host='192.168.0.136', port=8306, debug=True)
