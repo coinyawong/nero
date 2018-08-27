@@ -8,15 +8,15 @@
 <td colspan="6">
 보상 사이클 입력:
 <input type="text" name="cycle" /> 
-<input type="submit" value="GO" />
-<a href="javascript:chk()">[관리자]</a>
+<input type="submit" value="조회" />
+<a href="javascript:chk()">[관리자]</a> &nbsp<font color="red"> 지급완료 : {{data2[0][0]}} ꜩ / 지급예정 : {{data2[1][0]}} ꜩ = 총 {{data2[0][0] + data2[1][0]}} ꜩ</font>
 </h4>
 <table>
 <tr>
         <th>사이클</th>
         <th>롤수</th>
-	<th>롤당 리워드[tz]</th>
-        <th>리워드[tz]</th>
+	<th>롤당 리워드[ꜩ]</th>
+        <th>리워드[ꜩ]</th>
 	<th>보상지급</th>
 </tr>
 {% for row in data %}

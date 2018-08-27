@@ -157,7 +157,11 @@ def reward():
 	   sql='select cycle, roll, truncate(total/roll, 3) r_reward, total, chk from cycle where cycle=%s'
            cur.execute(sql, cycle)
         result = cur.fetchall()
-        templateData = {'data' : result, 'cycle' : cycle}
+	cur2 = conn.cursor()
+	sql2 = 'select sum(total) a from cycle group by chk'
+	cur2.execute(sql2)
+	result2 = cur2.fetchall()
+        templateData = {'data' : result, 'cycle' : cycle, 'data2' : result2}
         return render_template('reward.html',**templateData)
         cur.close()
         conn.close()
@@ -178,7 +182,7 @@ def user_reward():
 	cur2.close()
 	if id == '-':
 	  cur3 = conn.cursor()
-	  sql3='select truncate(sum(reward)*0.055, 3) fee from payout'
+	  sql3='select truncate(sum(total)*0.055, 3) fee from cycle where chk="O"'
 	  cur3.execute(sql3)
 	  result3 = cur3.fetchall()
           cur3.close()
@@ -191,4 +195,4 @@ def user_reward():
 
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
-   app.run(host='192.168.0.136', port=8306, debug=True)
+   app.run(host='192.168.0.136', port=8306) # debug=True

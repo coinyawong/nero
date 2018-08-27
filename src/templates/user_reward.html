@@ -6,17 +6,17 @@
 <h4>
 <form name="user" method="get">
 <td colspan="6">
-{{total[0][0]}}님 지급보상 : 총 {{total[0][1]}} tz
+{{total[0][0]}}님 <font color="blue"> 지급보상 : 총 {{total[0][1]}} ꜩ
 {% if total[0][0]  == '코인야웅' %}
-+ 수수료 : 총 {{fee[0][0]}} tz = {{total[0][1]+fee[0][0]}} tz
-{% endif %}
++ 수수료 : 총 {{fee[0][0]}} ꜩ
+{% endif %}</font>
 </h4>
 <table>
 <tr>
         <th>사이클</th>
 	<th>주소</th>
-	<th>위임량[tz]</th>
-        <th>리워드[tz]</th>
+	<th>위임량[ꜩ]</th>
+        <th>리워드[ꜩ]</th>
 </tr>
 {% for row in data %}
 <tr>
