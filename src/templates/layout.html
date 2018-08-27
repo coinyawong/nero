@@ -8,12 +8,15 @@
 // 메인
 function go_main()
 {
+f = document.main;
 var a = prompt('비밀번호를 입력하세요');
 if (a == null) {
 alert("취소하셨습니다.")
 } else {
 alert("관리자 페이지로 이동합니다.");
-location.href="admin_ck?type=a&pw="+a ;
+f.opt.value = 'a';
+f.pw.value = 'b';
+f.submit();
   }
 }
 // admin
