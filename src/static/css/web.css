@@ -94,6 +94,7 @@ a {
 .footer {
   padding: 5px;
   text-align: center;
-  background: white;
+  background: black;
+  text-color: white;
   margin-top: 0px;
 }
