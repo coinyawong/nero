@@ -148,7 +148,7 @@ def list():
           cycle = result3[0]
           cur3.close()
 	sql= 'select a.name, a.address, b.cycle, concat(format(b.balance, 0), "ꜩ") balance, format(b.balance/(c.roll*10000)*100, 1) percent, concat(format(b.balance/(c.roll*10000)*c.total*0.945, 3), "ꜩ") reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = b.cycle+7 and b.balance > 0 order by b.cycle'
-	cur.execute(sql, (cycle, cycle))
+	cur.execute(sql, cycle)
 	result = cur.fetchall()
 	cur.close()
 	cur2 = conn.cursor()
