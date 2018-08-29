@@ -86,6 +86,11 @@ function go_user(o)
 {
 location.href="list?cycle="+ o.value;
 }  
+// copy
+ function(str) {
+ window.clipboardData.setData("Text", str);
+ alert("복사되었습니다.");
+ }
 </script>
 </head>
 <body>
