@@ -10,7 +10,7 @@
 <select name="cycle" onchange="javascript:go_user(this)">
 <option value="">-----사이클 선택-----</option>
 {% for i in data2 %}
-<option value="{{i[0]}}" {% if i[0] == cycle %} selected {% endif %}> {{i[0]}} 사이클</option>
+<option value="{{i[0]}}" {% if i[0] == number(cycle) %} selected {% endif %}> {{i[0]}} 사이클</option>
 {% endfor %}
 </select>
 </h4>
