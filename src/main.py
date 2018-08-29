@@ -12,8 +12,7 @@ app = Flask(__name__)
 
 @app.errorhandler(404)
 def page_not_found(error):
-    msg = '페이지를 찾을 수 없습니다.'
-    return render_template('error.html', msg), 404
+    return render_template('error.html', msg="페이지를 찾을 수 없습니다."), 404
 
 @app.errorhandler(500)
 def page_server_error(error):
