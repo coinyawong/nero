@@ -26,18 +26,6 @@ a {
     color: #00008B;
 }
 
-h2 {
-  font-size: 3.0vw;
-}
-
-h3 {
-  font-size: 1.0vh;
-}
-
-h4 {
-  font-size: 0.8vmin;
-}
-
 .admin_table {
    border-collapse: collapse;
    width: 100%;
@@ -59,10 +47,4 @@ h4 {
 .nav a {
   float: none;
   width: 100%;
-}
-
-.card {
-  background-color: aliceblue;
-  padding: 5px;
-  margin-top: 5px;
 }
