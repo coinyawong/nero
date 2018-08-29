@@ -49,7 +49,7 @@ def admin():
         opt = request.args.get('opt')
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
-        sql= 'select a.name, (select max(cycle) from cycle) cycle, concat(format(sum(b.balance), 3), "ꜩ") balance, b.address from user a, user_info b where a.address = b.address and b.cycle+7 <= (select max(cycle) cycle from cycle) group by a.name, b.address'
+        sql= 'select a.name, (select max(cycle) from cycle) cycle, concat(format(sum(b.balance), 0), "ꜩ") balance, b.address from user a, user_info b where a.address = b.address and b.cycle+7 <= (select max(cycle) cycle from cycle) group by a.name, b.address'
         cur.execute(sql)
         result = cur.fetchall()
         cur2 = conn.cursor()
