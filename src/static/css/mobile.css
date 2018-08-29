@@ -48,3 +48,8 @@ a {
   float: none;
   width: 100%;
 }
+.card {
+  background-color: aliceblue;
+  padding: 5px;
+  margin-top: 5px;
+}
