@@ -80,10 +80,9 @@ a {
 }
 
 .card {
-  background-color: white;
+  background-color: aliceblue;
   padding: 20px;
   margin-top: 20px;
-  border:1;
 }
 
 .row after {
