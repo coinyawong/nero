@@ -88,9 +88,14 @@ location.href="list?cycle="+ o.value;
 }  
 // copy
  function copy(str) {
- alert(str);
- window.clipboardData.setData('Text', str);
+var IE=(document.all)?true:false;
+if (IE) {
+if(confirm("위임주소를 복사하시겠습니까?"))
+window.clipboardData.setData("Text", str);
+} else {
+temp = prompt("Ctrl+C를 눌러 복사하세요", str);
  }
+}
 </script>
 </head>
 <body>
