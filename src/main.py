@@ -170,7 +170,7 @@ def reward():
            cur.execute(sql, cycle)
         result = cur.fetchall()
 	cur2 = conn.cursor()
-	sql2 = 'select truncate(sum(total), 3) total a from cycle group by chk'
+	sql2 = 'select truncate(sum(total), 3) total from cycle group by chk'
 	cur2.execute(sql2)
 	result2 = cur2.fetchall()
         templateData = {'data' : result, 'cycle' : cycle, 'data2' : result2}
