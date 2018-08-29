@@ -163,14 +163,14 @@ def reward():
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
 	if len(cycle) ==0:
-	   sql= 'select cycle, roll, concat(truncate(total/roll, 3), "ꜩ") r_reward, concat(total, "ꜩ") total, chk from cycle order by cycle'
+	   sql= 'select cycle, roll, concat(truncate(total/roll, 3), "ꜩ") r_reward, concat(truncate(total, 0), "ꜩ") total, chk from cycle order by cycle'
 	   cur.execute(sql)
 	else:
-	   sql='select cycle, roll, concat(truncate(total/roll, 3), "ꜩ") r_reward, concat(total, "ꜩ") total, chk from cycle where cycle=%s'
+	   sql='select cycle, roll, concat(truncate(total/roll, 3), "ꜩ") r_reward, concat(truncate(total, 0), "ꜩ") total, chk from cycle where cycle=%s'
            cur.execute(sql, cycle)
         result = cur.fetchall()
 	cur2 = conn.cursor()
-	sql2 = 'select sum(total) a from cycle group by chk'
+	sql2 = 'select truncate(sum(total), 3) total a from cycle group by chk'
 	cur2.execute(sql2)
 	result2 = cur2.fetchall()
         templateData = {'data' : result, 'cycle' : cycle, 'data2' : result2}
