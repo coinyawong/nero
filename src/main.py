@@ -147,7 +147,7 @@ def list():
           result3 = cur3.fetchone()
           cycle = result3[0]
           cur3.close()
-	sql= 'select a.name name, a.address address, b.cycle cycle, concat(format(b.balance, 3), "ꜩ") balance, concat(truncate(b.balance/(c.roll*10000)*100,3), '%') as percent, concat(truncate(b.balance/(c.roll*10000)*c.total*0.945,3), "ꜩ") as reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = b.cycle+7 and b.balance > 0 order by b.cycle'
+	sql= 'select a.name name, a.address address, b.cycle cycle, format(b.balance, 3) balance, truncate(b.balance/(c.roll*10000)*100,3) as percent, truncate(b.balance/(c.roll*10000)*c.total*0.945) as reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = b.cycle+7 and b.balance > 0 order by b.cycle'
 	cur.execute(sql, cycle)
 	result = cur.fetchall()
 	cur.close()
