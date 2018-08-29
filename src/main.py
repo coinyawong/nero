@@ -207,4 +207,4 @@ def user_reward():
 
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
-   app.run(host='192.168.0.136', port=8306, debug=True)
+   app.run(host='192.168.0.136', port=8306) # debug=True
