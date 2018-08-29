@@ -186,7 +186,7 @@ def user_reward():
         id = request.args.get('id')
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
-        sql='select a.cycle, a.address, concat((select format(sum(balance), 3) from user_info where address=a.address and cycle+7<=a.cycle), "ꜩ") balance, concat(a.reward, 'ꜩ') from payout a where a.address=%s'
+        sql='select a.cycle, a.address, concat((select format(sum(balance), 3) from user_info where address=a.address and cycle+7<=a.cycle), "ꜩ") balance, concat(a.reward, "ꜩ") from payout a where a.address=%s'
         cur.execute(sql, id)
         result = cur.fetchall()
 	cur.close()
