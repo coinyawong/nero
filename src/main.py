@@ -159,7 +159,7 @@ def list():
 
 @app.route('/reward', methods=['GET'])
 def reward():
-	cycle = request.args.get('cycle')
+	cycle = int(request.args.get('cycle'))
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
 	if len(cycle) ==0:
