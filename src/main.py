@@ -147,7 +147,7 @@ def list():
           result3 = cur3.fetchone()
           cycle = result3[0]
           cur3.close()
-	sql= 'select a.name, a.address, b.cycle, b.balance, b.balance/(c.roll*10000)*100 percent, b.balance/(c.roll*10000)*c.total*0.945 reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle =%s and b.balance > 0 order by b.cycle'
+	sql= 'select a.name, a.address, b.cycle, concat(format(b.balance, 0), "ꜩ") balance, concat(format(b.balance/(c.roll*10000)*100, 1), "%") percent, concat(format(b.balance/(c.roll*10000)*c.total*0.945, 1), "ꜩ") reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle =%s and b.balance > 0 order by b.cycle'
 	cur.execute(sql, (cycle, cycle))
 	result = cur.fetchall()
 	cur.close()
@@ -186,7 +186,7 @@ def user_reward():
         id = request.args.get('id')
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
-        sql='select a.cycle, a.address, concat((select format(sum(balance), 3) from user_info where address=a.address and cycle+7<=a.cycle), "ꜩ") balance, concat(a.reward, "ꜩ") from payout a where a.address=%s'
+        sql='select a.cycle, a.address, concat((select format(sum(balance), 0) from user_info where address=a.address and cycle+7<=a.cycle), "ꜩ") balance, concat(a.reward, "ꜩ") from payout a where a.address=%s'
         cur.execute(sql, id)
         result = cur.fetchall()
 	cur.close()
