@@ -10,6 +10,21 @@ import os
 
 app = Flask(__name__)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    msg = '페이지를 찾을 수 없습니다.'
+    return render_template('error.html', msg), 404
+
+@app.errorhandler(500)
+def page_server_error(e):
+    msg = '오류가 발생하였습니다.'
+    return render_template('error.html', msg), 500
+
+@app.errorhandler(400)
+def page_bad_request(e):
+    msg = '잘못된 요청입니다.'
+    return render_template('error.html', msg), 400
+
 @app.route('/')
 def index():
      session['admin'] = False
@@ -195,4 +210,4 @@ def user_reward():
 
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
-   app.run(host='192.168.0.136', port=8306) # debug=True
+   app.run(host='192.168.0.136', port=8306, debug=True)
