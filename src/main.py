@@ -52,7 +52,7 @@ def admin():
         opt = request.args.get('opt')
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
-        sql= 'select a.name, (select max(cycle)-5 from cycle) cycle, concat(format(sum(b.balance), 3), 'ꜩ') balance, b.address from user a, user_info b where a.address = b.address and b.cycle+7 <= (select max(cycle)-5 cycle from cycle) group by a.name, b.address'
+        sql= 'select a.name, (select max(cycle)-5 from cycle) cycle, concat(format(sum(b.balance), 3), "ꜩ") balance, b.address from user a, user_info b where a.address = b.address and b.cycle+7 <= (select max(cycle)-5 cycle from cycle) group by a.name, b.address'
         cur.execute(sql)
         result = cur.fetchall()
         cur2 = conn.cursor()
@@ -147,7 +147,7 @@ def list():
           result3 = cur3.fetchone()
           cycle = result3[0]
           cur3.close()
-	sql= 'select a.name name, a.address address, b.cycle cycle, concat(format(b.balance, 3), 'ꜩ') balance, concat(truncate(b.balance/(c.roll*10000)*100,3), '%') as percent, concat(truncate(b.balance/(c.roll*10000)*c.total*0.945,3), 'ꜩ') as reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and b.balance > 0 order by b.cycle'
+	sql= 'select a.name name, a.address address, b.cycle cycle, concat(format(b.balance, 3), "ꜩ") balance, concat(truncate(b.balance/(c.roll*10000)*100,3), '%') as percent, concat(truncate(b.balance/(c.roll*10000)*c.total*0.945,3), 'ꜩ') as reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and b.balance > 0 order by b.cycle'
 	cur.execute(sql, (cycle, cycle))
 	result = cur.fetchall()
 	cur.close()
@@ -166,10 +166,10 @@ def reward():
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
 	if len(cycle) ==0:
-	   sql= 'select cycle, roll, concat(truncate(total/roll, 3), 'ꜩ') r_reward, total, chk from cycle order by cycle'
+	   sql= 'select cycle, roll, concat(truncate(total/roll, 3), "ꜩ") r_reward, total, chk from cycle order by cycle'
 	   cur.execute(sql)
 	else:
-	   sql='select cycle, roll, concat(truncate(total/roll, 3), 'ꜩ') r_reward, total, chk from cycle where cycle=%s'
+	   sql='select cycle, roll, concat(truncate(total/roll, 3), "ꜩ") r_reward, total, chk from cycle where cycle=%s'
            cur.execute(sql, cycle)
         result = cur.fetchall()
 	cur2 = conn.cursor()
@@ -186,7 +186,7 @@ def user_reward():
         id = request.args.get('id')
         conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
-        sql='select a.cycle, a.address, concat((select format(sum(balance), 3) from user_info where address=a.address and cycle+7<=a.cycle), 'ꜩ') balance, concat(a.reward, 'ꜩ') from payout a where a.address=%s'
+        sql='select a.cycle, a.address, concat((select format(sum(balance), 3) from user_info where address=a.address and cycle+7<=a.cycle), "ꜩ") balance, concat(a.reward, 'ꜩ') from payout a where a.address=%s'
         cur.execute(sql, id)
         result = cur.fetchall()
 	cur.close()
