@@ -138,13 +138,13 @@ def list():
 	conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
         cur = conn.cursor()
 	if len(cycle) == 0:
-	  sql3 = 'select max(cycle)-5 cycle from cycle'
+	  sql3 = 'select concat(max(cycle)-5) cycle from cycle'
 	  cur3 = conn.cursor()
 	  cur3.execute(sql3)
           result3 = cur3.fetchone()
           cycle = result3[0]
           cur3.close()
-	sql= 'select a.name, a.address, b.cycle, concat(format(b.balance, 0), "ꜩ") balance, format(b.balance/(c.roll*10000)*100, 1) percent, concat(format(b.balance/(c.roll*10000)*c.total*0.945, 3), "ꜩ") reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and b.balance > 0 order by b.cycle'
+	sql= 'select a.name, a.address, concat(b.cycle) cycle, concat(format(b.balance, 0), "ꜩ") balance, format(b.balance/(c.roll*10000)*100, 1) percent, concat(format(b.balance/(c.roll*10000)*c.total*0.945, 3), "ꜩ") reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and b.balance > 0 order by b.cycle'
 	cur.execute(sql, (cycle, cycle))
 	result = cur.fetchall()
 	cur.close()
