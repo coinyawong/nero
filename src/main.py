@@ -90,6 +90,14 @@ def admin():
 	  cur3.execute(sql3, (n4, n1))
 	  cur3.close()
           conn.commit()
+        elif opt == 'f':
+          sql2= 'update user_info set end = %s where address = %s and cycle = %s'
+          n1 = request.args.get('bal')
+          n2 = request.args.get('address')
+          n3 = request.args.get('cycle')
+          cur2.execute(sql2, (n1, n2, n3))
+	  cur2.close()
+          conn.commit()
         templateData = {'data' : result}
         return render_template("admin.html",**templateData)
         conn.close()
