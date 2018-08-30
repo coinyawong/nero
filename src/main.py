@@ -70,7 +70,7 @@ def admin():
 	  cur2.close()
           conn.commit()
         elif opt == 'c':
-          sql2= 'insert into user_info values(%s, %s, %s, sysdate())'
+          sql2= 'insert into user_info values(%s, %s, %s, 0, sysdate())'
           n1 = request.args.get('address')
           n2 = request.args.get('cycle')
           n3 = request.args.get('bal')
@@ -78,7 +78,7 @@ def admin():
 	  cur2.close()
           conn.commit()
         elif opt == 'd':
-          sql2= 'insert into user_info values(%s, %s, %s, sysdate())'
+          sql2= 'insert into user_info values(%s, %s, %s, 0, sysdate())'
 	  sql3 = 'insert into user values(%s, %s)'
           n1 = request.args.get('address')
           n2 = request.args.get('cycle')
@@ -120,7 +120,7 @@ def payout():
      cycle = request.form['cycle']
      conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
      cur = conn.cursor()
-     sql= 'insert into payout select a.address address, c.cycle cycle, sum(truncate(b.balance/(c.roll*10000)*c.total*0.945,3)) as reward, sysdate() from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and b.balance > 0 group by a.address, c.cycle'
+     sql= 'insert into payout select a.name, a.address address, c.cycle cycle, sum(truncate(b.balance/(c.roll*10000)*c.total*0.945,3)) as reward, sysdate() from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and (b.end =0 or b.end > c.cycle) group by a.address, c.cycle'
      sql2='update cycle set chk = "O" where cycle=%s'
      cur.execute(sql, (cycle, cycle))
      cur.close()
@@ -144,7 +144,7 @@ def list():
           result3 = cur3.fetchone()
           cycle = result3[0]
           cur3.close()
-	sql= 'select a.name, a.address, b.cycle cycle, concat(format(b.balance, 0), "ꜩ") balance, format(b.balance/(c.roll*10000)*100, 1) percent, concat(format(b.balance/(c.roll*10000)*c.total*0.945, 3), "ꜩ") reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and b.balance > 0 order by b.cycle'
+	sql= 'select a.name, a.address, b.cycle cycle, concat(format(b.balance, 0), "ꜩ") balance, format(b.balance/(c.roll*10000)*100, 1) percent, concat(format(b.balance/(c.roll*10000)*c.total*0.945, 3), "ꜩ") reward, c.chk from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and (b.end = 0 or b.end > c.cycle) order by b.cycle'
 	cur.execute(sql, (cycle, cycle))
 	result = cur.fetchall()
 	cur.close()
