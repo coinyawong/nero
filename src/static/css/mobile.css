@@ -49,7 +49,16 @@ a {
   width: 100%;
 }
 .card {
+  display: flex;
+  flex-direction: column;
   background-color: aliceblue;
   padding: 5px;
   margin-top: 5px;
+}
+.card h2{
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+.card h4{
+  font-size: 1.8rem;
 }
