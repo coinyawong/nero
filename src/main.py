@@ -128,7 +128,7 @@ def payout():
      cycle = request.form['cycle']
      conn = pymysql.connect(host='localhost', user='coinyawong2', password='10-10893', db='yawong', charset='utf8mb4')
      cur = conn.cursor()
-     sql= 'insert into payout select a.name, a.address address, c.cycle cycle, sum(truncate(b.balance/(c.roll*10000)*c.total*0.945,3)) as reward, sysdate() from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and (b.end =0 or b.end > c.cycle) group by a.address, c.cycle'
+     sql= 'insert into payout select a.address address, c.cycle cycle, sum(truncate(b.balance/(c.roll*10000)*c.total*0.945,3)) as reward, sysdate() from user a, user_info b, cycle c where a.address = b.address and b.cycle+7 <= %s and c.cycle = %s and (b.end =0 or b.end > c.cycle) group by a.address, c.cycle'
      sql2='update cycle set chk = "O" where cycle=%s'
      cur.execute(sql, (cycle, cycle))
      cur.close()
