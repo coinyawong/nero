@@ -91,7 +91,7 @@ def admin():
 	  cur3.close()
           conn.commit()
         elif opt == 'f':
-          sql2= 'update user_info set end = %s where address = %s and cycle = %s'
+          sql2= 'update user_info set end = %s+8 where address = %s and cycle = %s'
           n1 = request.args.get('bal')
           n2 = request.args.get('address')
           n3 = request.args.get('cycle')
