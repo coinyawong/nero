@@ -47,6 +47,14 @@ alert("사이클 미입력");
 alert("위임량 미입력");
 } else if(f.address.value == ''){
 alert("주소 미입력");
+} else if(o == 'f') {
+f = document.admin2;
+if(f.cycle.value == ''){
+alert("사이클 미입력");
+} else if(f.bal.value == ''){
+alert("해제사이클 미입력");
+} else if(f.address.value == ''){
+alert("주소 미입력");
 } else {
 f.opt.value = o;
 f.submit();
