@@ -62,3 +62,10 @@ a {
   padding: 5px;
   margin-top: 5px;
 }
+
+.footer {
+  padding: 0px;
+  text-align: center;
+  background: #24292e;
+  margin-top: 5px;
+}
