@@ -77,10 +77,11 @@ a {
 .con_main {
   float: left;
   width: 100%;
-  text-align:center;
   height:500px; 
-  background-size: 100% 500px;
+  text-align:center;
+  background-size: 100%;
 }
+
 .a_img {
   width: 100%;
   padding: 10px;
