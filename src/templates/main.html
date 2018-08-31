@@ -2,9 +2,9 @@
 {% block content %}
 <!-- main 영역 -->
 <div class="row">
-  <div class="con" style="text-align:center;background:url(../static/img/cat2.png);height:500px;">
+  <div class="con" style="text-align:center;background:url(../static/img/cat2.png);height:500px; background-repeat: repeat-x;">
 {% for row in data %}
-    <h2>현재 {{row[0]}}사이클, {{row[1]}} 롤 베이킹 중입니다. <font color='#00008B'> / 예상보상 : {{row[2]}} ꜩ</font></h2>
+    <font color=''><h2>현재 {{row[0]}}사이클, {{row[1]}} 롤 베이킹 중입니다. / 예상보상 : {{row[2]}} ꜩ</font></h2>
 {% endfor %}
 </div>
 {% endblock %}
