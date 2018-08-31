@@ -74,6 +74,14 @@ a {
   width: 100%;
 }
 
+.con_main {
+  float: left;
+  width: 100%;
+  text-align:center;
+  background:url(./img/cat2.png);
+  height:500px; 
+  background-size: 100% 500px;
+}
 .a_img {
   width: 100%;
   padding: 10px;
