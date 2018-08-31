@@ -49,7 +49,6 @@ a {
   float: left;
   width: 100%;
   text-align:center;
-  background:url(../static/img/cat2.png);
   height:250px; 
   background-size: 100% 250px;
 }
