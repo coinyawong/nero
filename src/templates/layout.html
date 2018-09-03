@@ -87,13 +87,19 @@ function go_user(o)
 location.href="list?cycle="+ o.value;
 }  
 // copy
- function copy(element) {
-	var $temp=$("<input>");
+ function copy(str) {	 
+var IE=(document.all)?true:false;		
+var $temp=$("<input>");
+if (IE) {		
 	$("body").append($temp);
-	$temp.val($(element).text()).select();
-	document.execCommand("copy");
+if(confirm("위임주소를 복사하시겠습니까?"))		
+$temp.val($(element).text()).select();
+window.clipboardData.setData("Text", str);		
+document.execCommand("copy");
+} else {		
 	$temp.remove();
-	alert("copy complete")}
+temp = prompt("Ctrl+C를 눌러 복사하세요", str);	
+ }
 }
 </script>
 </head>
