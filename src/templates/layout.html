@@ -87,13 +87,12 @@ function go_user(o)
 location.href="list?cycle="+ o.value;
 }  
 // copy
- function copy(str) {	 
-var IE=(document.all)?true:false;
-if (IE) {
-if(confirm("위임주소를 복사하시겠습니까?"))
-window.clipboardData.setData("Text", str);
-} else {
-temp = prompt("Ctrl+C를 눌러 복사하세요", str);
+ function copy() {	 
+
+ var textFiled = document.getElementById('adr');
+ textFiled.select();
+ document.execCommand("copy");  
+  alert("복사 완료");
  }
 }
 </script>
